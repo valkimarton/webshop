@@ -19,10 +19,12 @@ public class Review {
 
     @NotNull(message = "customer may not be empty")
     @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @NotNull(message = "product may not be empty")
     @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @Range(min = 1, max = 10)
@@ -33,7 +35,7 @@ public class Review {
     private String content;
 
     @NotNull(message = "date may not be null")
-    @Temporal(TemporalType.DATE)        // TODO: Ez legyen DateTime
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     protected Review() {}

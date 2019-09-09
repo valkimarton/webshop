@@ -18,6 +18,7 @@ public class Manufacturer {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @Column(name = "dateoffundation")

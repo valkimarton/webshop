@@ -1,7 +1,5 @@
 package com.bmeonlab.valki.webshop.model;
 
-import org.hibernate.validator.constraints.Range;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

@@ -28,6 +28,7 @@ public class Product {
     private String color;           // TODO: change to enum
 
     @ManyToOne
+    @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
 
     @OneToMany(targetEntity = Review.class, mappedBy = "product")      // TODO: Cascade property-nek utánanézni.
