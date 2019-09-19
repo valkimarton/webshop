@@ -12,16 +12,11 @@ public class Cart {
     private Long id;
 
     @NotNull(message = "customer may not be null")
-    @OneToOne(mappedBy = "cart")     // TODO:   Ha sűrűn használom ezt az tagváltozót, akkor mappedBy helyett megéri ide is felvenni egy JoinColumn-t?
+    @OneToOne(mappedBy = "cart")
     private Customer customer;
 
-    @ManyToMany     // TODO: ManyToMany működését megnézni
-    @JoinTable(name = "cart_products",
-            joinColumns = @JoinColumn(name = "cart_iddd", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "product_idd", referencedColumnName = "id"))
+    @OneToMany(mappedBy = "cart")
     private List<ProductInCart> products;
-
-
 
     protected Cart() {}
 

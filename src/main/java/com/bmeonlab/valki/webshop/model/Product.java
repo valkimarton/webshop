@@ -40,7 +40,7 @@ public class Product {
     // TODO: Kell ez a default konstruktor?
     protected Product() {}
 
-    // TODO: Konstruktorban kellenek a validációs annotációk?  Ha igen, rissíteni annotációkkal
+    // TODO: Konstruktorban kellenek a validációs annotációk?  Ha igen, frissíteni annotációkkal
     public Product(@NotBlank @Size(min = 2, max = 100) String name, int price, String category, String color, Manufacturer manufacturer, List<Review> reviews) {
         this.name = name;
         this.price = price;
