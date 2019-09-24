@@ -38,7 +38,7 @@ public class Product {
 
 
     // TODO: Kell ez a default konstruktor?
-    protected Product() {}
+    public Product() {}
 
     // TODO: Konstruktorban kellenek a validációs annotációk?  Ha igen, frissíteni annotációkkal
     public Product(@NotBlank @Size(min = 2, max = 100) String name, int price, String category, String color, Manufacturer manufacturer, List<Review> reviews) {
@@ -92,4 +92,28 @@ public class Product {
     }
 
 
+    public Long getId() {
+        return id;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", category='" + category + '\'' +
+                ", color='" + color + '\'' +
+                ", manufacturer=" + manufacturer +
+                ", reviews=" + reviews +
+                '}';
+    }
 }

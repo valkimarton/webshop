@@ -28,7 +28,6 @@ public class CustomerController {
 
     @PostMapping
     public Customer createCustomer(@Valid @NotNull @RequestBody Customer customer){
-        System.out.println(customer);
         return customerService.createCustomer(customer);
     }
 
