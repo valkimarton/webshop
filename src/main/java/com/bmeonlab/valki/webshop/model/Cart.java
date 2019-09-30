@@ -24,4 +24,24 @@ public class Cart {
         this.customer = customer;
         this.products = products;
     }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public List<ProductInCart> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductInCart> products) {
+        this.products = products;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }

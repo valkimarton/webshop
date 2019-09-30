@@ -1,6 +1,7 @@
 package com.bmeonlab.valki.webshop.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -21,47 +22,41 @@ public class Customer {
     @Column(name = "firstname")
     @NotBlank(message = "first name may not be blank")
     @Size(max = 50)
-    @JsonProperty("first_name")
     private String firstName;
 
     @Column(name = "lastname")
     @NotBlank(message = "last name may not be blank")
     @Size(max = 50)
-    @JsonProperty("last_name")
     private String lastName;
 
     @Column(name = "dateofbirth")
     @NotNull(message = "date of birth may not be blank")
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonProperty("date_of_birth")
     private Date dateOfBirth;
 
     @NotNull(message = "gender may not be null")
-    @JsonProperty("gender")
     private String gender;          // TODO: enum legyen
 
     @Size(max = 100)
     @Email(message = "Invalid e-mail address provided")
-    @JsonProperty("email")
     private String email;
 
     @ManyToOne
     @JoinColumn(name = "address_id")
-    @JsonProperty("address")
     private Address address;
 
     // TODO: Visszarakni ezt a sort: @NotNull(message = "??? (Cart of customer IS NULL)")      // TODO: a kosarat új Customer hozzáadásakor kellene generálni.
     @OneToOne
     @JoinColumn(name = "cart_id")
-    @JsonProperty("cart")
+    @JsonIgnore
     private Cart cart;
 
     public Customer(){}
 
-    public Customer(@JsonProperty("first_name") @NotBlank(message = "first name may not be blank") @Size(max = 50) String firstName,
-                    @JsonProperty("last_name") @NotBlank(message = "last name may not be blank") @Size(max = 50) String lastName,
-                    @JsonProperty("date_of_birth") Date dateOfBirth,
+    public Customer(@NotBlank(message = "first name may not be blank") @Size(max = 50) String firstName,
+                    @NotBlank(message = "last name may not be blank") @Size(max = 50) String lastName,
+                    Date dateOfBirth,
                     @NotNull(message = "gender may not be null") String gender,
                     @Size(max = 100) @Email(message = "Invalid e-mail address provided") String email,
                     Address address,
@@ -87,5 +82,61 @@ public class Customer {
                 ", address=" + address +
                 ", cart=" + cart +
                 '}';
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Cart getCart() {
+        return cart;
     }
 }
