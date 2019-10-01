@@ -1,6 +1,7 @@
 package com.bmeonlab.valki.webshop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "review")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "product" })
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +28,6 @@ public class Review {
     @NotNull(message = "product may not be empty")
     @ManyToOne
     @JoinColumn(name = "product_id")
-    @JsonIgnore
     private Product product;
 
     @Range(min = 1, max = 10)
@@ -40,7 +41,7 @@ public class Review {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    protected Review() {}
+    public Review() {}
 
     public Review(@NotNull(message = "customer may not be empty") Customer customer,
                   @NotNull(message = "product may not be empty") Product product,

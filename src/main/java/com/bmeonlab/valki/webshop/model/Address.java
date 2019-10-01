@@ -1,5 +1,7 @@
 package com.bmeonlab.valki.webshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -7,6 +9,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "address")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

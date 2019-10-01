@@ -26,3 +26,7 @@ INSERT INTO product (id, name, price, color, category, manufacturer_id) VALUES
 (10003, 'Adidas NMD_R1', 44990, 'white', 'shoes', 10001),
 (10004, 'Nike Air Max 720', 43990, 'blue', 'shoes', 10002),
 (10005, 'Nike Air Max Alpha', 26990, 'black', 'shoes', 10002);
+
+INSERT INTO review (id, customer_id, product_id, grade, content, date) VALUES
+(10001, 10001, 10001, 5, 'Looks great and really confortable. I really like it.', TO_DATE('11/07/2018', 'DD/MM/YYYY')),
+(10002, 10002, 10001, 3, 'I loved it, but it has durability problems.', TO_DATE('10/10/2017', 'DD/MM/YYYY'));

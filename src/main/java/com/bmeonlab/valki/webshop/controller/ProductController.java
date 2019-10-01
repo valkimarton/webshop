@@ -1,7 +1,9 @@
 package com.bmeonlab.valki.webshop.controller;
 
 import com.bmeonlab.valki.webshop.model.Product;
+import com.bmeonlab.valki.webshop.model.Review;
 import com.bmeonlab.valki.webshop.service.ProductService;
+import com.bmeonlab.valki.webshop.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ReviewService reviewService;
+
     @GetMapping
     public List<Product> getProducts() {
         List<Product> products = productService.getProducts();
@@ -27,6 +32,13 @@ public class ProductController {
     @GetMapping(value = "{id}")
     public Product getProductById(@PathVariable  Long id) {
         return productService.getProductById(id);
+    }
+
+    @GetMapping(value = "{id}/reviews")
+    public List<Review> getReviewsByProductId(@PathVariable Long id) {
+        List<Review> reviews = reviewService.getReviewsByProductId(id);
+        reviews.forEach(review -> System.out.println(review));
+        return reviews;
     }
 
     @PostMapping

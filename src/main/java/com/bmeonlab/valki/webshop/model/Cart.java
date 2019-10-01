@@ -1,5 +1,7 @@
 package com.bmeonlab.valki.webshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     private Long id;
 
     @NotNull(message = "customer may not be null")

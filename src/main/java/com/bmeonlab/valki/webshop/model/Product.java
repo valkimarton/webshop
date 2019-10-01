@@ -1,11 +1,14 @@
 package com.bmeonlab.valki.webshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.List;
 
 @Entity
 @Table(name = "product")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
