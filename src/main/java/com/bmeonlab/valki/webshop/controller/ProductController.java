@@ -37,7 +37,6 @@ public class ProductController {
     @GetMapping(value = "{id}/reviews")
     public List<Review> getReviewsByProductId(@PathVariable Long id) {
         List<Review> reviews = reviewService.getReviewsByProductId(id);
-        reviews.forEach(review -> System.out.println(review));
         return reviews;
     }
 

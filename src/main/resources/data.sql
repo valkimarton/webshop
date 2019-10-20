@@ -14,10 +14,10 @@ INSERT INTO cart (id) VALUES
 (10002),
 (10003);
 
-INSERT INTO customer (id, firstname, lastname, dateofbirth, gender, email, address_id, cart_id) VALUES
-(10001, 'Tivadar', 'Bakos', TO_DATE('12/08/1991', 'DD/MM/YYYY'), 'male', 'tivadarbakos@fakemail.com', 10003, 10001),
-(10002, 'Artur', 'Gomboc', TO_DATE('11/11/1977', 'DD/MM/YYYY'), 'male', 'gombocartur@fakemail.com', 10004, 10002),
-(10003, 'Herbert', 'Bauer', TO_DATE('23/02/1993', 'DD/MM/YYYY'), 'male', 'herbertmaster777@fakemail.com', 10005, 10003);
+INSERT INTO customer (id, firstname, lastname, username, password, enabled, dateofbirth, gender, email, address_id, cart_id) VALUES
+(10001, 'Tivadar', 'Bakos', 'Bak0sTivad4r', '$2a$10$OOOsasaVLniXBTpGC7SNuuuFeRg98ixHWcGy/OhSZKw.rOF5MmvL.', true, TO_DATE('12/08/1991', 'DD/MM/YYYY'), 'male', 'tivadarbakos@fakemail.com', 10003, 10001),
+(10002, 'Artur', 'Gomboc', 'GombocA', '$2a$10$OOOsasaVLniXBTpGC7SNuuuFeRg98ixHWcGy/OhSZKw.rOF5MmvL.', true, TO_DATE('11/11/1977', 'DD/MM/YYYY'), 'male', 'gombocartur@fakemail.com', 10004, 10002),
+(10003, 'Herbert', 'Bauer', 'HerbertBauer19', '$2a$10$OOOsasaVLniXBTpGC7SNuuuFeRg98ixHWcGy/OhSZKw.rOF5MmvL.', true, TO_DATE('23/02/1993', 'DD/MM/YYYY'), 'male', 'herbertmaster777@fakemail.com', 10005, 10003);
 
 
 INSERT INTO product (id, name, price, color, category, manufacturer_id) VALUES
@@ -30,3 +30,13 @@ INSERT INTO product (id, name, price, color, category, manufacturer_id) VALUES
 INSERT INTO review (id, customer_id, product_id, grade, content, date) VALUES
 (10001, 10001, 10001, 5, 'Looks great and really confortable. I really like it.', TO_DATE('11/07/2018', 'DD/MM/YYYY')),
 (10002, 10002, 10001, 3, 'I loved it, but it has durability problems.', TO_DATE('10/10/2017', 'DD/MM/YYYY'));
+
+INSERT INTO role (id, role) VALUES
+(10001, 'USER'),
+(10002, 'ADMIN');
+
+INSERT INTO user_roles (customer_id, role_id) VALUES
+(10001, 10001),
+(10002, 10001),
+(10002, 10002),
+(10003, 10001);

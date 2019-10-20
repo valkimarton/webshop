@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "customer")
@@ -18,7 +19,6 @@ import java.util.Date;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonProperty("id")
     private Long id;
 
     @Column(name = "firstname")
@@ -30,6 +30,25 @@ public class Customer {
     @NotBlank(message = "last name may not be blank")
     @Size(max = 50)
     private String lastName;
+
+    @Column(unique = true)
+    @NotBlank(message = "username may not be blank")
+    @Size(max = 50)
+    private String username;
+
+    @NotBlank(message = "password may not be blank")
+    @Size(max=1000)
+    private String password;
+
+    @NotNull(message = "enabled may not be null")
+    private boolean enabled;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
     @Column(name = "dateofbirth")
     @NotNull(message = "date of birth may not be blank")
