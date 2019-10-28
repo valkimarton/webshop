@@ -16,5 +16,3 @@ public class DevCorsConfiguration implements WebMvcConfigurer {
                 .exposedHeaders("Authorization");*/
     }
 }
-
-// TODO: remove this file

@@ -31,7 +31,7 @@ INSERT INTO review (id, customer_id, product_id, grade, content, date) VALUES
 (10001, 10001, 10001, 5, 'Looks great and really confortable. I really like it.', TO_DATE('11/07/2018', 'DD/MM/YYYY')),
 (10002, 10002, 10001, 3, 'I loved it, but it has durability problems.', TO_DATE('10/10/2017', 'DD/MM/YYYY'));
 
-INSERT INTO role (id, role) VALUES
+INSERT INTO role (id, name) VALUES
 (10001, 'USER'),
 (10002, 'ADMIN');
 

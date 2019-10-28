@@ -14,7 +14,7 @@ public class Role {
 
     @Column(unique = true)
     @NotBlank(message = "role may not be blank")
-    private String role;
+    private String name;
 
     @ManyToMany(mappedBy = "roles")
     List<Customer> customers;
