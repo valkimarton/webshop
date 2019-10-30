@@ -64,9 +64,14 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .formLogin().disable()
                 .authorizeRequests()
+                // EVERYONE
                 .antMatchers("/api/v1/authenticate").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/product").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/product/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/product/*/reviews").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/product/*/manufacturer").permitAll()  // TODO
+                // USER
                 .antMatchers(HttpMethod.GET).hasAuthority("USER")    // TODO: this helps now, but should be reviewed later
-                .antMatchers(HttpMethod.GET, "/api/v1/product/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/product").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/v1/product/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/api/v1/product/**").hasAuthority("ADMIN")

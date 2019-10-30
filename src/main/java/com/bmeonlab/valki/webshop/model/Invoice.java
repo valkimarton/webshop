@@ -7,9 +7,9 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name = "voucher")
+@Table(name = "invoice")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Voucher {
+public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -19,12 +19,12 @@ public class Voucher {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "voucher")
+    @OneToMany(mappedBy = "invoice")        // TODO: no 'invoice' in Product Entity. Review when needed
     private List<ProductInCart> products;
 
-    public Voucher(){}
+    public Invoice(){}
 
-    public Voucher(@NotNull(message = "customer may not be null") Customer customer, List<ProductInCart> products) {
+    public Invoice(@NotNull(message = "customer may not be null") Customer customer, List<ProductInCart> products) {
         this.customer = customer;
         this.products = products;
     }

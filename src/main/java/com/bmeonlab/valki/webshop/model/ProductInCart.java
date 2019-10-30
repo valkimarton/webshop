@@ -33,7 +33,7 @@ public class ProductInCart {
     @ManyToOne
     @JoinColumn(name = "voucher_id")
     @JsonIgnore
-    private Voucher voucher;
+    private Invoice invoice;
 
     public ProductInCart() {}
 
@@ -42,12 +42,12 @@ public class ProductInCart {
             @NotNull(message = "number of products may not be null") int numberOfProducts,
             @NotNull(message = "purchase price may not be null") int purchasePrice,
             Cart cart,
-            Voucher voucher) {
+            Invoice invoice) {
         this.product = product;
         NumberOfProducts = numberOfProducts;
         this.purchasePrice = purchasePrice;
         this.cart = cart;
-        this.voucher = voucher;
+        this.invoice = invoice;
     }
 
     public Product getProduct() {
@@ -82,12 +82,12 @@ public class ProductInCart {
         this.cart = cart;
     }
 
-    public Voucher getVoucher() {
-        return voucher;
+    public Invoice getInvoice() {
+        return invoice;
     }
 
-    public void setVoucher(Voucher voucher) {
-        this.voucher = voucher;
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 
     public Long getId() {
