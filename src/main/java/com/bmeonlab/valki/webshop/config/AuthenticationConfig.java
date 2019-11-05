@@ -2,9 +2,13 @@ package com.bmeonlab.valki.webshop.config;
 
 import com.bmeonlab.valki.webshop.security.JwtAuthenticationFilter;
 import com.bmeonlab.valki.webshop.security.JwtAuthorizationFilter;
+import com.bmeonlab.valki.webshop.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,6 +28,9 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private CustomerService customerService;
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -70,6 +77,7 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/v1/product/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/product/*/reviews").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/product/*/manufacturer").permitAll()  // TODO
+                .antMatchers(HttpMethod.GET, "/api/v1/customer/username/*").permitAll()      //TODO: move to "USER"
                 // USER
                 .antMatchers(HttpMethod.GET).hasAuthority("USER")    // TODO: this helps now, but should be reviewed later
                 .antMatchers(HttpMethod.POST, "/api/v1/product").hasAuthority("ADMIN")
@@ -78,10 +86,16 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/api/v1/product/**").hasAuthority("ADMIN")
                 .antMatchers("**").denyAll()                            // Denies every other request
                 .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), customerService))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager()))
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+    @Bean(name = "MyAuthenticationManager")
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
 }

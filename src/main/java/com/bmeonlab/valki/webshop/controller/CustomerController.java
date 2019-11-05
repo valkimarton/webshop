@@ -26,6 +26,9 @@ public class CustomerController {
         return customerService.getCustomerById(id);
     }
 
+    @GetMapping(value = "username/{username}")
+    public Customer getCustomerByUsername(@PathVariable String username) { return customerService.getCustomerByUsername(username); }
+
     @PostMapping
     public Customer createCustomer(@Valid @NotNull @RequestBody Customer customer){
         return customerService.createCustomer(customer);

@@ -22,6 +22,10 @@ public class CustomerService {
         return customerRepository.getOne(id);
     }
 
+    public Customer getCustomerByUsername(String username){
+        return customerRepository.findByUsername(username).orElse(null);
+    }
+
     public List<Customer> getCustomers(){
         return customerRepository.findAll();
     }

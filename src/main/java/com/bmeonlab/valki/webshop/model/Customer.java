@@ -73,6 +73,10 @@ public class Customer {
     @JsonIgnore
     private Cart cart;
 
+    @OneToMany(mappedBy = "customer")
+    @JsonIgnore
+    private List<Invoice> invoices;
+
     public Customer(){}
 
     public Customer(@NotBlank(message = "first name may not be blank") @Size(max = 50) String firstName,
@@ -159,5 +163,25 @@ public class Customer {
 
     public Cart getCart() {
         return cart;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
     }
 }

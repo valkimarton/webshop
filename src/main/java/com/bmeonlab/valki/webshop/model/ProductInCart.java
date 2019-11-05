@@ -20,7 +20,7 @@ public class ProductInCart {
     private Product product;
 
     @NotNull(message = "number of products may not be null")
-    private int NumberOfProducts;
+    private int numberOfProducts;
 
     @NotNull(message = "purchase price may not be null")
     private int purchasePrice;
@@ -44,7 +44,7 @@ public class ProductInCart {
             Cart cart,
             Invoice invoice) {
         this.product = product;
-        NumberOfProducts = numberOfProducts;
+        numberOfProducts = numberOfProducts;
         this.purchasePrice = purchasePrice;
         this.cart = cart;
         this.invoice = invoice;
@@ -59,11 +59,11 @@ public class ProductInCart {
     }
 
     public int getNumberOfProducts() {
-        return NumberOfProducts;
+        return numberOfProducts;
     }
 
     public void setNumberOfProducts(int numberOfProducts) {
-        NumberOfProducts = numberOfProducts;
+        numberOfProducts = numberOfProducts;
     }
 
     public int getPurchasePrice() {
