@@ -23,6 +23,8 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     List<Customer> customers;
 
+    public Role(){}
+
     public Role(@NotNull(message = "role may not be blank") RoleType name) {
         this.name = name;
     }
