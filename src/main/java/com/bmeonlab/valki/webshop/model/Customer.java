@@ -81,18 +81,22 @@ public class Customer {
 
     public Customer(@NotBlank(message = "first name may not be blank") @Size(max = 50) String firstName,
                     @NotBlank(message = "last name may not be blank") @Size(max = 50) String lastName,
-                    Date dateOfBirth,
+                    @NotBlank(message = "username may not be blank") @Size(max = 50) String username,
+                    @NotBlank(message = "password may not be blank") @Size(max = 1000) String password,
+                    List<Role> roles,
+                    @NotNull(message = "date of birth may not be blank") Date dateOfBirth,
                     @NotNull(message = "gender may not be null") String gender,
                     @Size(max = 100) @Email(message = "Invalid e-mail address provided") String email,
-                    Address address,
-                    Cart cart) {
+                    Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.email = email;
         this.address = address;
-        this.cart = cart;
     }
 
     @Override
@@ -183,5 +187,21 @@ public class Customer {
 
     public void setInvoices(List<Invoice> invoices) {
         this.invoices = invoices;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }
