@@ -47,26 +47,6 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        /*
-        http
-                //HTTP Basic authentication
-                .httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/v1/authenticate").permitAll()
-                .antMatchers(HttpMethod.GET).hasAuthority("USER")    // TODO: this helps now, but should be reviewed later
-                .antMatchers(HttpMethod.GET, "/api/v1/product/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/product").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/v1/product/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.PATCH, "/api/v1/product/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/v1/product/**").hasAuthority("ADMIN")
-                .antMatchers("**").denyAll()                            // Denies every other request
-                .and()
-                .csrf().disable()
-                .formLogin().disable();
-
-         */
-
         http.cors().and()
                 .csrf().disable()
                 .formLogin().disable()
@@ -77,6 +57,7 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/v1/product/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/product/*/reviews").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/product/*/manufacturer").permitAll()  // TODO
+                .antMatchers(HttpMethod.POST, "/api/v1/registration").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/customer/username/*").permitAll()      //TODO: move to "USER"
                 // USER
                 .antMatchers(HttpMethod.GET).hasAuthority("USER")    // TODO: this helps now, but should be reviewed later
