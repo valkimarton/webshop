@@ -15,13 +15,13 @@ public class Cart {
     private Long id;
 
     @NotNull(message = "customer may not be null")
-    @OneToOne(mappedBy = "cart")
+    @OneToOne(mappedBy = "cart", cascade = CascadeType.PERSIST)
     private Customer customer;
 
     @OneToMany(mappedBy = "cart")
     private List<ProductInCart> products;
 
-    protected Cart() {}
+    public Cart() {}
 
     public Cart(@NotNull(message = "customer may not be null") Customer customer, List<ProductInCart> products) {
         this.customer = customer;

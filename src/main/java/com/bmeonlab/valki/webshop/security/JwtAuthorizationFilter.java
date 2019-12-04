@@ -22,12 +22,6 @@ import java.util.stream.Collectors;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-    @Value("${jwt.secret}")
-    private String secret;
-
-    @Value("${jwt.expiration}")
-    private int tokenExpirationTime;
-
     private static final Logger log = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {

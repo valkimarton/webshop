@@ -7,12 +7,13 @@ import com.bmeonlab.valki.webshop.model.enums.RoleType;
 import com.bmeonlab.valki.webshop.repository.CartRepository;
 import com.bmeonlab.valki.webshop.repository.CustomerRepository;
 import com.bmeonlab.valki.webshop.repository.RoleRepository;
+import com.bmeonlab.valki.webshop.utils.NullAwareBeanUtils;
 import com.bmeonlab.valki.webshop.utils.exceptions.WebshopException;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,7 +37,8 @@ public class CustomerService {
         if (userRole == null)
             throw new WebshopException("USER role doesn't exist");
 
-        customer.setRoles(List.of(userRole));
+        customer.setRoles(new ArrayList<Role>());
+        customer.addRole(userRole);
         customer.setEnabled(true);
 
         cartRepository.saveAndFlush(cart);
@@ -58,7 +60,7 @@ public class CustomerService {
 
     public Customer updateCustomer(Long id, Customer customer){
         Customer existingCustomer = customerRepository.findById(id).orElse(new Customer());
-        BeanUtils.copyProperties(customer, existingCustomer);
+        NullAwareBeanUtils.copyNonNullProperties(customer, existingCustomer);
         return customerRepository.saveAndFlush(existingCustomer);
     }
 

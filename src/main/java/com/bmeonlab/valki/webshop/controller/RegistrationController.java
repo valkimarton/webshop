@@ -1,8 +1,10 @@
 package com.bmeonlab.valki.webshop.controller;
 
 
+import com.bmeonlab.valki.webshop.dto.CustomerDTO;
 import com.bmeonlab.valki.webshop.model.Customer;
 import com.bmeonlab.valki.webshop.service.CustomerService;
+import com.bmeonlab.valki.webshop.utils.DTOConverter;
 import com.bmeonlab.valki.webshop.utils.exceptions.WebshopException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +22,13 @@ public class RegistrationController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private DTOConverter dtoConverter;
+
     @PostMapping
-    public Customer registerUser(@Valid @NotNull @RequestBody Customer customer) throws WebshopException {
-        return customerService.createCustomer(customer);
+    public CustomerDTO registerUser(@Valid @NotNull @RequestBody CustomerDTO customerDTO) throws WebshopException {
+        Customer customer = dtoConverter.toCustomer(customerDTO);
+        Customer createdCustomer = customerService.createCustomer(customer);
+        return dtoConverter.toCustomerDTO(createdCustomer);
     }
 }

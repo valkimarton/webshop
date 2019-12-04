@@ -14,10 +14,10 @@ INSERT INTO cart (id) VALUES
 (10002),
 (10003);
 
-INSERT INTO customer (id, firstname, lastname, username, password, enabled, dateofbirth, gender, email, address_id, cart_id) VALUES
-(10001, 'Tivadar', 'Bakos', 'Bak0sTivad4r', '$2a$10$OOOsasaVLniXBTpGC7SNuuuFeRg98ixHWcGy/OhSZKw.rOF5MmvL.', true, TO_DATE('12/08/1991', 'DD/MM/YYYY'), 'male', 'tivadarbakos@fakemail.com', 10003, 10001),
-(10002, 'Artur', 'Gomboc', 'GombocA', '$2a$10$OOOsasaVLniXBTpGC7SNuuuFeRg98ixHWcGy/OhSZKw.rOF5MmvL.', true, TO_DATE('11/11/1977', 'DD/MM/YYYY'), 'male', 'gombocartur@fakemail.com', 10004, 10002),
-(10003, 'Herbert', 'Bauer', 'HerbertBauer19', '$2a$10$OOOsasaVLniXBTpGC7SNuuuFeRg98ixHWcGy/OhSZKw.rOF5MmvL.', true, TO_DATE('23/02/1993', 'DD/MM/YYYY'), 'male', 'herbertmaster777@fakemail.com', 10005, 10003);
+INSERT INTO customer (id, name, username, password, enabled, dateofbirth, gender, email, address_id, cart_id) VALUES
+(10001, 'Tivadar Bakos', 'Bak0sTivad4r', '$2a$10$OOOsasaVLniXBTpGC7SNuuuFeRg98ixHWcGy/OhSZKw.rOF5MmvL.', true, TO_DATE('12/08/1991', 'DD/MM/YYYY'), 'male', 'tivadarbakos@fakemail.com', 10003, 10001),
+(10002, 'Artur Gomboc', 'GombocA', '$2a$10$OOOsasaVLniXBTpGC7SNuuuFeRg98ixHWcGy/OhSZKw.rOF5MmvL.', true, TO_DATE('11/11/1977', 'DD/MM/YYYY'), 'male', 'gombocartur@fakemail.com', 10004, 10002),
+(10003, 'Herbert Bauer', 'HerbertBauer19', '$2a$10$OOOsasaVLniXBTpGC7SNuuuFeRg98ixHWcGy/OhSZKw.rOF5MmvL.', true, TO_DATE('23/02/1993', 'DD/MM/YYYY'), 'male', 'herbertmaster777@fakemail.com', 10005, 10003);
 
 
 INSERT INTO product (id, name, price, color, category, manufacturer_id) VALUES

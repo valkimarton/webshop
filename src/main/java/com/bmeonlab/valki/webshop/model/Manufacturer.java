@@ -31,7 +31,7 @@ public class Manufacturer {
     @Size(max = 1000)
     private String description;
 
-    protected Manufacturer() {}
+    public Manufacturer() {}
 
     public Manufacturer(@NotBlank(message = "town may not be blank") @Size(max = 100) String name,
                         Address address,

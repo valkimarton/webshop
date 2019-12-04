@@ -1,4 +1,4 @@
-package com.bmeonlab.valki.webshop.devhelper;
+package com.bmeonlab.valki.webshop.utils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

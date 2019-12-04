@@ -1,7 +1,9 @@
 package com.bmeonlab.valki.webshop.controller;
 
+import com.bmeonlab.valki.webshop.dto.CustomerDTO;
 import com.bmeonlab.valki.webshop.model.Customer;
 import com.bmeonlab.valki.webshop.service.CustomerService;
+import com.bmeonlab.valki.webshop.utils.DTOConverter;
 import com.bmeonlab.valki.webshop.utils.exceptions.WebshopException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,27 +19,39 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private DTOConverter dtoConverter;
+
     @GetMapping
-    public List<Customer> getAllCustomers(){
-        return customerService.getCustomers();
+    public List<CustomerDTO> getAllCustomers(){
+        List<Customer>  customers = customerService.getCustomers();
+        return dtoConverter.toCustomerDTOList(customers);
     }
 
     @GetMapping(value = "{id}")
-    public Customer getCustomerById(@PathVariable Long id){
-        return customerService.getCustomerById(id);
+    public CustomerDTO getCustomerById(@PathVariable Long id){
+        Customer customer = customerService.getCustomerById(id);
+        return dtoConverter.toCustomerDTO(customer);
     }
 
     @GetMapping(value = "username/{username}")
-    public Customer getCustomerByUsername(@PathVariable String username) { return customerService.getCustomerByUsername(username); }
+    public CustomerDTO getCustomerByUsername(@PathVariable String username) {
+        Customer customer = customerService.getCustomerByUsername(username);
+        return dtoConverter.toCustomerDTO(customer);
+    }
 
     @PostMapping
-    public Customer createCustomer(@Valid @NotNull @RequestBody Customer customer) throws WebshopException {
-        return customerService.createCustomer(customer);
+    public CustomerDTO createCustomer(@Valid @NotNull @RequestBody CustomerDTO customerDTO) throws WebshopException {
+        Customer customer = dtoConverter.toCustomer(customerDTO);
+        Customer createdCustomer = customerService.createCustomer(customer);
+        return dtoConverter.toCustomerDTO(createdCustomer);
     }
 
     @PutMapping(value = "{id}")
-    public Customer updateCustomer(@PathVariable Long id, @RequestBody Customer customer){
-        return customerService.updateCustomer(id, customer);
+    public CustomerDTO updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO){
+        Customer customer = dtoConverter.toCustomer(customerDTO);
+        Customer updatedCustomer = customerService.updateCustomer(id, customer);
+        return dtoConverter.toCustomerDTO(updatedCustomer);
     }
 
     @DeleteMapping(value = "{id}")

@@ -21,21 +21,17 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "firstname")
-    @NotBlank(message = "first name may not be blank")
-    @Size(max = 50)
-    private String firstName;
-
-    @Column(name = "lastname")
-    @NotBlank(message = "last name may not be blank")
-    @Size(max = 50)
-    private String lastName;
+    @NotBlank(message = "name may not be blank")
+    @Size(max = 100)
+    private String name;
 
     @Column(unique = true)
     @NotBlank(message = "username may not be blank")
     @Size(max = 50)
     private String username;
 
+    // @JsonIgnore      // TODO: how to solve this: If ignored, can't create user
+    @JsonProperty("password")
     @NotBlank(message = "password may not be blank")
     @Size(max=1000)
     private String password;
@@ -51,12 +47,10 @@ public class Customer {
     private List<Role> roles;
 
     @Column(name = "dateofbirth")
-    @NotNull(message = "date of birth may not be blank")
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
-    @NotNull(message = "gender may not be null")
     private String gender;          // TODO: enum legyen
 
     @Size(max = 100)
@@ -67,8 +61,7 @@ public class Customer {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    // TODO: Visszarakni ezt a sort: @NotNull(message = "??? (Cart of customer IS NULL)")      // TODO: a kosarat új Customer hozzáadásakor kellene generálni.
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     @JsonIgnore
     private Cart cart;
@@ -79,8 +72,7 @@ public class Customer {
 
     public Customer(){}
 
-    public Customer(@NotBlank(message = "first name may not be blank") @Size(max = 50) String firstName,
-                    @NotBlank(message = "last name may not be blank") @Size(max = 50) String lastName,
+    public Customer(@NotBlank(message = "name may not be blank") @Size(max = 100) String name,
                     @NotBlank(message = "username may not be blank") @Size(max = 50) String username,
                     @NotBlank(message = "password may not be blank") @Size(max = 1000) String password,
                     List<Role> roles,
@@ -88,8 +80,7 @@ public class Customer {
                     @NotNull(message = "gender may not be null") String gender,
                     @Size(max = 100) @Email(message = "Invalid e-mail address provided") String email,
                     Address address) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.username = username;
         this.password = password;
         this.roles = roles;
@@ -103,8 +94,7 @@ public class Customer {
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", name='" + name + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", gender='" + gender + '\'' +
                 ", email='" + email + '\'' +
@@ -113,20 +103,12 @@ public class Customer {
                 '}';
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getDateOfBirth() {
@@ -204,4 +186,6 @@ public class Customer {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+    public void addRole(Role role) { this.roles.add(role); }
 }

@@ -2,7 +2,7 @@ package com.bmeonlab.valki.webshop.service;
 
 import com.bmeonlab.valki.webshop.model.Review;
 import com.bmeonlab.valki.webshop.repository.ReviewRepository;
-import org.springframework.beans.BeanUtils;
+import com.bmeonlab.valki.webshop.utils.NullAwareBeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class ReviewService {
 
     public Review updateReview(Long id, Review review) {
         Review existingReview = reviewRepository.findById(id).orElse(new Review());
-        BeanUtils.copyProperties(review, existingReview);
+        NullAwareBeanUtils.copyNonNullProperties(review, existingReview);
         return reviewRepository.saveAndFlush(existingReview);
     }
 

@@ -19,10 +19,6 @@ public class Role {
     @NotNull(message = "role may not be blank")
     private RoleType name;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "roles")
-    List<Customer> customers;
-
     public Role(){}
 
     public Role(@NotNull(message = "role may not be blank") RoleType name) {
@@ -35,14 +31,6 @@ public class Role {
 
     public void setName(RoleType name) {
         this.name = name;
-    }
-
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
     }
 
     public Long getId() {

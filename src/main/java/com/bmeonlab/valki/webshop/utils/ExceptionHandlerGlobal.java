@@ -1,9 +1,12 @@
-package com.bmeonlab.valki.webshop.utils.exceptions;
+package com.bmeonlab.valki.webshop.utils;
 
+import com.bmeonlab.valki.webshop.utils.exceptions.WebshopException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -27,6 +30,9 @@ public class ExceptionHandlerGlobal extends ResponseEntityExceptionHandler {
                 null,
                 HttpStatus.NOT_FOUND, request);
     }
+
+
+
 
     /*@ExceptionHandler({ServiceException.class, RepositoryException.class})
     protected ResponseEntity<Object> handleInternalError(RuntimeException e, WebRequest request) {

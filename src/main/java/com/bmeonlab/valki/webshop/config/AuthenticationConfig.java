@@ -3,6 +3,7 @@ package com.bmeonlab.valki.webshop.config;
 import com.bmeonlab.valki.webshop.security.JwtAuthenticationFilter;
 import com.bmeonlab.valki.webshop.security.JwtAuthorizationFilter;
 import com.bmeonlab.valki.webshop.service.CustomerService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,7 +44,6 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    // Secure the endpoins with HTTP Basic authentication   TODO: fix, modify, complete, understand
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -58,9 +58,12 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/v1/product/*/reviews").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/product/*/manufacturer").permitAll()  // TODO
                 .antMatchers(HttpMethod.POST, "/api/v1/registration").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/customer").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/customer").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/customer/username/*").permitAll()      //TODO: move to "USER"
                 // USER
                 .antMatchers(HttpMethod.GET).hasAuthority("USER")    // TODO: this helps now, but should be reviewed later
+                // ADMIN
                 .antMatchers(HttpMethod.POST, "/api/v1/product").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/v1/product/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/api/v1/product/**").hasAuthority("ADMIN")
@@ -77,6 +80,11 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
 }

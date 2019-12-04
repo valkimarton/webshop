@@ -2,7 +2,7 @@ package com.bmeonlab.valki.webshop.service;
 
 import com.bmeonlab.valki.webshop.model.Product;
 import com.bmeonlab.valki.webshop.repository.ProductRepository;
-import org.springframework.beans.BeanUtils;
+import com.bmeonlab.valki.webshop.utils.NullAwareBeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class ProductService {
 
     public Product updateProduct(Long id, Product product) {
         Product existingProduct = productRepository.findById(id).orElse(new Product());
-        BeanUtils.copyProperties(product, existingProduct);
+        NullAwareBeanUtils.copyNonNullProperties(product, existingProduct);
         return productRepository.saveAndFlush(existingProduct);
     }
 
