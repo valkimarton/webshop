@@ -21,10 +21,8 @@ public class RoleService {
         return roleRepository.saveAndFlush(role);
     }
 
-    @Transactional
     public Role getRoleById(Long id) { return roleRepository.getOne(id); }
 
-    @Transactional
     public List<Role> getRoles() {
         return roleRepository.findAll();
     }
@@ -38,8 +36,7 @@ public class RoleService {
 
     @Transactional
     public void deleteRole(Long id) { roleRepository.deleteById(id); }
-
-    @Transactional
+    
     public Role findByRoleName(RoleType roleName) {
         return roleRepository.findByName(roleName).orElse(null);
     }

@@ -188,4 +188,12 @@ public class Customer {
     }
 
     public void addRole(Role role) { this.roles.add(role); }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

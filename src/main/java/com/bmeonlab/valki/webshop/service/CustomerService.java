@@ -8,8 +8,11 @@ import com.bmeonlab.valki.webshop.repository.CartRepository;
 import com.bmeonlab.valki.webshop.repository.CustomerRepository;
 import com.bmeonlab.valki.webshop.repository.RoleRepository;
 import com.bmeonlab.valki.webshop.utils.NullAwareBeanUtils;
+import com.bmeonlab.valki.webshop.utils.exceptions.ActionNotAllowedException;
+import com.bmeonlab.valki.webshop.utils.exceptions.UnauthenticatedUserException;
 import com.bmeonlab.valki.webshop.utils.exceptions.WebshopException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,16 +57,27 @@ public class CustomerService {
         return customerRepository.findByUsername(username).orElse(null);
     }
 
+    public Customer getRequesterCustomer() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        if(username == null || username.equals("anonymousUser"))
+            throw new UnauthenticatedUserException("unauthenticated user can not view his/her profile");
+
+        Customer customer = getCustomerByUsername(username);
+        return customer;
+    }
+
     public List<Customer> getCustomers(){
         return customerRepository.findAll();
     }
 
+    @Transactional
     public Customer updateCustomer(Long id, Customer customer){
         Customer existingCustomer = customerRepository.findById(id).orElse(new Customer());
         NullAwareBeanUtils.copyNonNullProperties(customer, existingCustomer);
         return customerRepository.saveAndFlush(existingCustomer);
     }
 
+    @Transactional
     public void deleteCustomer(Long id){
         customerRepository.deleteById(id);      // TODO: adja esetleg vissza a törölt Customert?
     }

@@ -44,6 +44,10 @@ public class Cart {
         this.products = products;
     }
 
+    public void removeProduct(ProductInCart productInCart) {
+        products.remove(productInCart);
+    }
+
     public Long getId() {
         return id;
     }

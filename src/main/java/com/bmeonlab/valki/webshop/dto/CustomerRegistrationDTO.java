@@ -6,11 +6,11 @@ import com.bmeonlab.valki.webshop.model.Role;
 import java.util.Date;
 import java.util.List;
 
-public class CustomerDTO {
+public class CustomerRegistrationDTO {
     private Long id;
     private String name;
     private String username;
-    // private String password;
+    private String password;
     private boolean enabled;
     private List<Role> roles;
     private Date dateOfBirth;
@@ -106,5 +106,13 @@ public class CustomerDTO {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

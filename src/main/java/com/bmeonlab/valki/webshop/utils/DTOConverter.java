@@ -7,6 +7,7 @@ import com.bmeonlab.valki.webshop.service.*;
 import com.bmeonlab.valki.webshop.utils.exceptions.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -104,6 +105,16 @@ public class DTOConverter {
         return customer;
     }
 
+    public Customer toCustomer(CustomerRegistrationDTO customerDTO) {
+        Customer customer = modelMapper.map(customerDTO, Customer.class);
+
+        customer.setInvoices(getInvoicesFromInvoiceIdList(customerDTO.getInvoiceIds()));
+        customer.setCart(cartService.getCartById(customerDTO.getCartId()));
+        customer.setPassword(new BCryptPasswordEncoder().encode(customer.getPassword()));
+
+        return customer;
+    }
+
     // REVIEWS
 
     public List<ReviewDTO> toReviewDTOList(List<Review> reviews) {
@@ -188,8 +199,6 @@ public class DTOConverter {
     public ProductInCart toProductInCart(ProductInCartDTO productInCartDTO) {
         if(productService.getProductById(productInCartDTO.getProductId()) == null)
             throw new BadRequestException("Invalid Product ID set for ProductInCart.");
-        if(cartService.getCartById(productInCartDTO.getCartId()) == null)
-            throw new BadRequestException("Invalid Cart ID set for ProductInCart.");
 
         ProductInCart productInCart = modelMapper.map(productInCartDTO, ProductInCart.class);
 

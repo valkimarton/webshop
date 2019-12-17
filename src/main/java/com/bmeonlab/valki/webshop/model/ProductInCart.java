@@ -31,7 +31,7 @@ public class ProductInCart {
     private Cart cart;
 
     @ManyToOne
-    @JoinColumn(name = "voucher_id")
+    @JoinColumn(name = "invoice_id")
     @JsonIgnore
     private Invoice invoice;
 
@@ -44,7 +44,7 @@ public class ProductInCart {
             Cart cart,
             Invoice invoice) {
         this.product = product;
-        numberOfProducts = numberOfProducts;
+        this.numberOfProducts = numberOfProducts;
         this.purchasePrice = purchasePrice;
         this.cart = cart;
         this.invoice = invoice;
@@ -63,7 +63,7 @@ public class ProductInCart {
     }
 
     public void setNumberOfProducts(int numberOfProducts) {
-        numberOfProducts = numberOfProducts;
+        this.numberOfProducts = numberOfProducts;
     }
 
     public int getPurchasePrice() {

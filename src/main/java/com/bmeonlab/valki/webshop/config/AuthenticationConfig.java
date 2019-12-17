@@ -1,5 +1,6 @@
 package com.bmeonlab.valki.webshop.config;
 
+import com.bmeonlab.valki.webshop.model.enums.RoleType;
 import com.bmeonlab.valki.webshop.security.JwtAuthenticationFilter;
 import com.bmeonlab.valki.webshop.security.JwtAuthorizationFilter;
 import com.bmeonlab.valki.webshop.service.CustomerService;
@@ -62,12 +63,22 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/v1/customer").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/customer/username/*").permitAll()      //TODO: move to "USER"
                 // USER
-                .antMatchers(HttpMethod.GET).hasAuthority("USER")    // TODO: this helps now, but should be reviewed later
+                .antMatchers(HttpMethod.GET).hasAuthority(RoleType.USER.name())    // TODO: this helps now, but should be reviewed later
+                .antMatchers(HttpMethod.POST, "/api/v1/product_in_cart").hasAuthority(RoleType.USER.name())
+                .antMatchers(HttpMethod.GET, "/api/v1/product_in_cart/*").hasAuthority(RoleType.USER.name())
+                .antMatchers(HttpMethod.DELETE, "/api/v1/product_in_cart/*").hasAuthority(RoleType.USER.name())
+                .antMatchers(HttpMethod.POST, "/api/v1/product_in_cart/buy").hasAuthority(RoleType.USER.name())
+                .antMatchers(HttpMethod.GET, "/api/v1/invoice/customer").hasAuthority(RoleType.USER.name())
+                .antMatchers(HttpMethod.GET, "/api/v1/invoice/*/products").hasAuthority(RoleType.USER.name())
+                .antMatchers(HttpMethod.GET, "/api/v1/customer/myself").hasAuthority(RoleType.USER.name())
+                .antMatchers(HttpMethod.POST, "/api/v1/review").hasAuthority(RoleType.USER.name())
                 // ADMIN
-                .antMatchers(HttpMethod.POST, "/api/v1/product").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/v1/product/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.PATCH, "/api/v1/product/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/v1/product/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/v1/product").hasAuthority(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.PUT, "/api/v1/product/**").hasAuthority(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.PATCH, "/api/v1/product/**").hasAuthority(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.DELETE, "/api/v1/product/**").hasAuthority(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/api/v1/invoice/*").hasAuthority(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/api/v1/customer/*").hasAuthority(RoleType.ADMIN.name())
                 .antMatchers("**").denyAll()                            // Denies every other request
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), customerService))
